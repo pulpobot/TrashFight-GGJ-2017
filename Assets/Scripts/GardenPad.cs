@@ -7,6 +7,15 @@ public class GardenPad : MonoBehaviour
 	public GardenPad[] closestGardens;
 	public GardenPad[] farthestGardens;
 
+	public float health = 1;
+
+	public Color[] damageColors;
+
+	void Start()
+	{
+		OnWaveHit (0);
+	}
+
 	public void OnHit(ObjectSize objSize)
 	{
 		GetComponent<Renderer> ().enabled = true;
@@ -32,15 +41,6 @@ public class GardenPad : MonoBehaviour
 		}
 
 		OnWaveHit (damage);
-		//Affect the farthest ones
-		if (range > 1) 
-		{
-			damage -= 0.25f;
-			for (int i = 0; i < farthestGardens.Length; i++) 
-			{
-				farthestGardens [i].OnWaveHit (damage);
-			}
-		}
 
 		//Affect the closest ones
 		if (range > 0) 
@@ -51,17 +51,38 @@ public class GardenPad : MonoBehaviour
 				closestGardens [i].OnWaveHit (damage);
 			}
 		}
+
+		//Affect the farthest ones
+		if (range > 1) 
+		{
+			damage -= 0.25f;
+			for (int i = 0; i < farthestGardens.Length; i++) 
+			{
+				farthestGardens [i].OnWaveHit (damage);
+			}
+		}
 	}
 
 	public void OnWaveHit(float hitDamage)
 	{
+		health -= hitDamage;
+
 		GetComponent<Renderer> ().enabled = true;
-		if (hitDamage == 0.75f)
-			GetComponent<Renderer> ().material.color = Color.red;
-		else if (hitDamage == 0.5f) 
-			GetComponent<Renderer> ().material.color = Color.blue;
-		else if (hitDamage == 0.25f) 
-			GetComponent<Renderer> ().material.color = Color.green;
+
+		if (health <= 0.75f)
+			GetComponent<Renderer> ().material.color = damageColors [0];
+		if (health <= 0.5f) 
+			GetComponent<Renderer> ().material.color = damageColors [1];
+		if (health <= 0.25f) 
+			GetComponent<Renderer> ().material.color = damageColors [2];
+		if (health <= 0f) 
+			GetComponent<Renderer> ().material.color = damageColors [3];
+//		if (hitDamage == 0.75f)
+//			GetComponent<Renderer> ().material.color = Color.red;
+//		else if (hitDamage == 0.5f) 
+//			GetComponent<Renderer> ().material.color = Color.blue;
+//		else if (hitDamage == 0.25f) 
+//			GetComponent<Renderer> ().material.color = Color.green;
 	}
 }
 

@@ -17,6 +17,13 @@ public class ObjectToLaunch : MonoBehaviour {
 
 	Vector3 startV;
 	bool OnAir;
+	Vector3 startingTransform;
+
+	void Awake()
+	{
+		startingTransform = transform.position;
+	}
+
 	// Use this for initialization
 	void Start () {
 		startV = transform.position;
@@ -28,26 +35,35 @@ public class ObjectToLaunch : MonoBehaviour {
 
 	}
 
-	public void LaunchObject()
+	public void LaunchObject(Vector3 launchForce)
 	{
 		GetComponent<Rigidbody> ().isKinematic = false;
-		GetComponent<Rigidbody> ().AddForce (force, ForceMode.Impulse);
+		GetComponent<Rigidbody> ().AddForce (launchForce, ForceMode.Impulse);
+		GetComponent<Rigidbody> ().AddTorque (new Vector3(Random.Range(-150,150),Random.Range(-150,150),Random.Range(-150,150)));
 		OnAir = true;
+	}
+
+	public void ResetPosition()
+	{
+		transform.position = startingTransform;
 	}
 
 	void OnTriggerEnter(Collider obj)
 	{
 		if (OnAir) 
 		{
+			GardenPad aux = obj.GetComponent<GardenPad> ();
+			if (aux != null) 
+			{
+				aux.OnHit (objectSize);
+			}
 			OnAir = false;
-			obj.GetComponent<GardenPad> ().OnHit (objectSize);
-
 			transform.position = startV;	
-			OnAir = false;
 			GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			GetComponent<Rigidbody> ().rotation = Quaternion.identity;
 			GetComponent<Rigidbody> ().isKinematic = true;
 			gameObject.SetActive (false);
+
 		}
 	}
 }

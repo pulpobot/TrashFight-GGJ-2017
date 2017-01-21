@@ -18,11 +18,24 @@ public class Catapult : MonoBehaviour
 	public GameObject[] objectsToThrow;
 	public float objectChangesPerSecond = 1.5f;
 	public float laneChangesPerSecond = 1.5f;
+	public float forceChangesPerSecond = 1.5f;
 
 	public Transform[] lanePos;
 
+	public int forcesQuantity = 8;
+	public Vector3[] forces;
+	public ForceMeterUIController forceMeter;
+
 	int currentIndexObject;
 	int currentIndexLane;
+	int currentIndexForce;
+
+	Vector3 startingPos;
+
+	void Awake()
+	{
+		startingPos = transform.position;
+	}
 
 	void Start()
 	{
@@ -47,9 +60,12 @@ public class Catapult : MonoBehaviour
 		case RoundStep.Rotation:
 			currentStep = RoundStep.Force;
 			OnLaneSelected ();
+			OnStartForceSelection ();
 			break;
 
 		case RoundStep.Force:
+			currentStep = RoundStep.Launch;
+			OnForceSelected ();
 			OnThrowObject ();
 			break;
 
@@ -88,7 +104,25 @@ public class Catapult : MonoBehaviour
 
 	void OnThrowObject()
 	{
-		objectsToThrow [currentIndexObject].GetComponent<ObjectToLaunch> ().LaunchObject ();
+		objectsToThrow [currentIndexObject].GetComponent<ObjectToLaunch> ().LaunchObject (forces[currentIndexForce]);
+		StartCoroutine (WaitToResetTurn());
+	}
+
+	IEnumerator WaitToResetTurn()
+	{
+		yield return new WaitForSeconds (3f);
+		currentStep = RoundStep.Pause;
+		ResetPosition ();
+		OnTap ();
+	}
+
+	void ResetPosition()
+	{
+		transform.position = startingPos;
+		for (int i = 0; i < objectsToThrow.Length; i++) 
+		{		
+			objectsToThrow [i].GetComponent<ObjectToLaunch> ().ResetPosition ();
+		}
 	}
 
 	void OnStartLaneSelection()
@@ -125,6 +159,36 @@ public class Catapult : MonoBehaviour
 
 			transform.position = newPos;
 		}
+	}
+
+	void OnStartForceSelection()
+	{
+		StartCoroutine ("OnForceSelection");
+	}
+
+	IEnumerator OnForceSelection()
+	{
+		currentIndexForce = Random.Range(0, forces.Length);
+		while (true) 
+		{
+			yield return new WaitForSeconds (1/forceChangesPerSecond);
+			currentIndexForce++;
+			forceMeter.SetValue (currentIndexForce);
+
+			if (currentIndexForce >= forces.Length) 
+			{
+				currentIndexForce = 0;
+			}
+
+//			yield return new WaitForSeconds (1/forceChangesPerSecond);
+//			currentIndexForce = 7;
+//			forceMeter.SetValue (currentIndexForce);
+		}
+	}
+
+	void OnForceSelected()
+	{
+		StopCoroutine ("OnForceSelection");
 	}
 
 }
