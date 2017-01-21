@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: 5b14a6fcb8e624540846c85e4c25e739
+timeCreated: 1485032603
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Piso01
+    100002: Piso35
+    100004: Piso36
+    100006: Piso37
+    100008: Piso38
+    100010: Piso39
+    100012: Piso40
+    100014: Piso41
+    100016: Piso42
+    100018: Piso43
+    100020: Piso44
+    100022: Piso45
+    100024: Piso46
+    100026: Piso47
+    100028: Piso48
+    100030: Piso49
+    100032: Piso50
+    100034: Piso51
+    100036: Piso52
+    100038: //RootNode
+    400000: Piso01
+    400002: Piso35
+    400004: Piso36
+    400006: Piso37
+    400008: Piso38
+    400010: Piso39
+    400012: Piso40
+    400014: Piso41
+    400016: Piso42
+    400018: Piso43
+    400020: Piso44
+    400022: Piso45
+    400024: Piso46
+    400026: Piso47
+    400028: Piso48
+    400030: Piso49
+    400032: Piso50
+    400034: Piso51
+    400036: Piso52
+    400038: //RootNode
+    2300000: Piso01
+    2300002: Piso35
+    2300004: Piso36
+    2300006: Piso37
+    2300008: Piso38
+    2300010: Piso39
+    2300012: Piso40
+    2300014: Piso41
+    2300016: Piso42
+    2300018: Piso43
+    2300020: Piso44
+    2300022: Piso45
+    2300024: Piso46
+    2300026: Piso47
+    2300028: Piso48
+    2300030: Piso49
+    2300032: Piso50
+    2300034: Piso51
+    2300036: Piso52
+    3300000: Piso01
+    3300002: Piso35
+    3300004: Piso36
+    3300006: Piso37
+    3300008: Piso38
+    3300010: Piso39
+    3300012: Piso40
+    3300014: Piso41
+    3300016: Piso42
+    3300018: Piso43
+    3300020: Piso44
+    3300022: Piso45
+    3300024: Piso46
+    3300026: Piso47
+    3300028: Piso48
+    3300030: Piso49
+    3300032: Piso50
+    3300034: Piso51
+    3300036: Piso52
+    4300000: Piso35
+    4300002: Piso36
+    4300004: Piso37
+    4300006: Piso50
+    4300008: Piso39
+    4300010: Piso01
+    4300012: Piso47
+    4300014: Piso41
+    4300016: Piso42
+    4300018: Piso51
+    4300020: Piso44
+    4300022: Piso45
+    4300024: Piso49
+    4300026: Piso38
+    4300028: Piso43
+    4300030: Piso46
+    4300032: Piso52
+    4300034: Piso40
+    4300036: Piso48
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

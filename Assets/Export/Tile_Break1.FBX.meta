@@ -1,0 +1,154 @@
+fileFormatVersion: 2
+guid: 94c99ecdd950b40629a33035531c4861
+timeCreated: 1485032614
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Piso53
+    100002: Piso54
+    100004: Piso55
+    100006: Piso56
+    100008: Piso57
+    100010: Piso58
+    100012: Piso59
+    100014: Piso60
+    100016: Piso61
+    100018: Piso62
+    100020: Piso63
+    100022: Piso64
+    100024: Piso65
+    100026: Piso66
+    100028: Piso67
+    100030: //RootNode
+    400000: Piso53
+    400002: Piso54
+    400004: Piso55
+    400006: Piso56
+    400008: Piso57
+    400010: Piso58
+    400012: Piso59
+    400014: Piso60
+    400016: Piso61
+    400018: Piso62
+    400020: Piso63
+    400022: Piso64
+    400024: Piso65
+    400026: Piso66
+    400028: Piso67
+    400030: //RootNode
+    2300000: Piso53
+    2300002: Piso54
+    2300004: Piso55
+    2300006: Piso56
+    2300008: Piso57
+    2300010: Piso58
+    2300012: Piso59
+    2300014: Piso60
+    2300016: Piso61
+    2300018: Piso62
+    2300020: Piso63
+    2300022: Piso64
+    2300024: Piso65
+    2300026: Piso66
+    2300028: Piso67
+    3300000: Piso53
+    3300002: Piso54
+    3300004: Piso55
+    3300006: Piso56
+    3300008: Piso57
+    3300010: Piso58
+    3300012: Piso59
+    3300014: Piso60
+    3300016: Piso61
+    3300018: Piso62
+    3300020: Piso63
+    3300022: Piso64
+    3300024: Piso65
+    3300026: Piso66
+    3300028: Piso67
+    4300000: Piso53
+    4300002: Piso54
+    4300004: Piso55
+    4300006: Piso56
+    4300008: Piso62
+    4300010: Piso61
+    4300012: Piso64
+    4300014: Piso63
+    4300016: Piso57
+    4300018: Piso59
+    4300020: Piso60
+    4300022: Piso65
+    4300024: Piso66
+    4300026: Piso67
+    4300028: Piso58
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

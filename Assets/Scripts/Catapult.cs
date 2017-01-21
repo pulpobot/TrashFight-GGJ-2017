@@ -24,11 +24,14 @@ public class Catapult : MonoBehaviour
 
 	public int forcesQuantity = 8;
 	public Vector3[] forces;
+	public Vector3 minForce;
+	public Vector3 maxForce;
+
 	public ForceMeterUIController forceMeter;
 
 	int currentIndexObject;
 	int currentIndexLane;
-	int currentIndexForce;
+	float currentForce;
 
 	Vector3 startingPos;
 
@@ -40,6 +43,12 @@ public class Catapult : MonoBehaviour
 	void Start()
 	{
 		currentStep = RoundStep.Pause;
+	}
+
+	public void StopCatapults()
+	{
+		currentStep = RoundStep.Pause;
+		StopAllCoroutines ();
 	}
 
 	public void OnTap()
@@ -104,7 +113,7 @@ public class Catapult : MonoBehaviour
 
 	void OnThrowObject()
 	{
-		objectsToThrow [currentIndexObject].GetComponent<ObjectToLaunch> ().LaunchObject (forces[currentIndexForce]);
+		objectsToThrow [currentIndexObject].GetComponent<ObjectToLaunch> ().LaunchObject (Vector3.Lerp(minForce, maxForce, currentForce));
 		StartCoroutine (WaitToResetTurn());
 	}
 
@@ -166,23 +175,45 @@ public class Catapult : MonoBehaviour
 		StartCoroutine ("OnForceSelection");
 	}
 
+//	IEnumerator OnForceSelection()
+//	{
+//		currentIndexForce = Random.Range(0, forces.Length);
+//		while (true) 
+//		{
+//			yield return new WaitForSeconds (1/forceChangesPerSecond);
+//			currentIndexForce++;
+//			forceMeter.SetValue (currentIndexForce);
+//
+//			if (currentIndexForce >= forces.Length) 
+//			{
+//				currentIndexForce = 0;
+//			}
+//
+////			yield return new WaitForSeconds (1/forceChangesPerSecond);
+////			currentIndexForce = 7;
+////			forceMeter.SetValue (currentIndexForce);
+//		}
+//	}
+
+
 	IEnumerator OnForceSelection()
 	{
-		currentIndexForce = Random.Range(0, forces.Length);
+		currentForce = 0;
+		int multiplier = 1;
 		while (true) 
 		{
-			yield return new WaitForSeconds (1/forceChangesPerSecond);
-			currentIndexForce++;
-			forceMeter.SetValue (currentIndexForce);
+			yield return null;
+			currentForce += multiplier * 0.08f;
 
-			if (currentIndexForce >= forces.Length) 
+			if (currentForce >= 1 || currentForce <= 0) 
 			{
-				currentIndexForce = 0;
+				multiplier *= -1;
 			}
 
-//			yield return new WaitForSeconds (1/forceChangesPerSecond);
-//			currentIndexForce = 7;
-//			forceMeter.SetValue (currentIndexForce);
+			forceMeter.SetValue (currentForce);
+			//			yield return new WaitForSeconds (1/forceChangesPerSecond);
+			//			currentIndexForce = 7;
+			//			forceMeter.SetValue (currentIndexForce);
 		}
 	}
 

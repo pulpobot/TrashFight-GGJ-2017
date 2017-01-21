@@ -15,9 +15,14 @@ public class ForceMeterUIController : MonoBehaviour
 		currentValue = 0;
 	}
 
-	public void SetValue(int value)
+//	public void SetValue(int value)
+//	{
+//		currentValue = value;
+//		GetComponent<RectTransform> ().sizeDelta = new Vector2 (GetComponent<RectTransform> ().sizeDelta.x, (maxHeightYValue / divider) * currentValue);
+//	}
+
+	public void SetValue(float value)
 	{
-		currentValue = value;
-		GetComponent<RectTransform> ().sizeDelta = new Vector2 (GetComponent<RectTransform> ().sizeDelta.x, (maxHeightYValue / divider) * currentValue);
+		GetComponent<RectTransform> ().sizeDelta = new Vector2 (GetComponent<RectTransform> ().sizeDelta.x, maxHeightYValue  * value);
 	}
 }

@@ -14,6 +14,7 @@ public class ObjectToLaunch : MonoBehaviour {
 	public Vector3 force;
 	public ObjectSize objectSize;
 
+	public float[] mass;
 
 	Vector3 startV;
 	bool OnAir;
@@ -22,6 +23,19 @@ public class ObjectToLaunch : MonoBehaviour {
 	void Awake()
 	{
 		startingTransform = transform.position;
+		switch(objectSize)
+		{
+		case ObjectSize.Large:
+			GetComponent<Rigidbody> ().mass = mass[2];
+			break;
+		case ObjectSize.Medium:
+			GetComponent<Rigidbody> ().mass = mass[1];
+			break;
+		case ObjectSize.Small:
+			GetComponent<Rigidbody> ().mass = mass[0];
+			break;
+		}
+
 	}
 
 	// Use this for initialization
