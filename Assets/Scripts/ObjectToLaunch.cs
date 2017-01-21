@@ -2,9 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ObjectSize
+{
+	Large,
+	Medium,
+	Small
+}
+
 public class ObjectToLaunch : MonoBehaviour {
 
 	public Vector3 force;
+	public ObjectSize objectSize;
+
 
 	Vector3 startV;
 	bool OnAir;
@@ -31,7 +40,7 @@ public class ObjectToLaunch : MonoBehaviour {
 		if (OnAir) 
 		{
 			OnAir = false;
-			obj.GetComponent<GardenPad> ().OnHit ();
+			obj.GetComponent<GardenPad> ().OnHit (objectSize);
 
 			transform.position = startV;	
 			OnAir = false;
