@@ -13,14 +13,16 @@ public enum RoundStep
 
 public class Catapult : MonoBehaviour 
 {
-
-	public GameObject[] objectsToThrow;
-	public float changesPerSecond = 1.5f;
-
 	public RoundStep currentStep;
 
+	public GameObject[] objectsToThrow;
+	public float objectChangesPerSecond = 1.5f;
+	public float laneChangesPerSecond = 1.5f;
+
+	public Transform[] lanePos;
 
 	int currentIndexObject;
+	int currentIndexLane;
 
 	void Start()
 	{
@@ -39,14 +41,16 @@ public class Catapult : MonoBehaviour
 		case RoundStep.Select:
 			currentStep = RoundStep.Rotation;
 			OnObjectSelected ();
+			OnStartLaneSelection ();
 				break;
 
 		case RoundStep.Rotation:
 			currentStep = RoundStep.Force;
-			OnThrowObject ();
+			OnLaneSelected ();
 			break;
 
 		case RoundStep.Force:
+			OnThrowObject ();
 			break;
 
 		case RoundStep.Launch:
@@ -65,7 +69,7 @@ public class Catapult : MonoBehaviour
 		objectsToThrow [currentIndexObject].SetActive (true);
 		while (true) 
 		{
-			yield return new WaitForSeconds (1/changesPerSecond);
+			yield return new WaitForSeconds (1/objectChangesPerSecond);
 			objectsToThrow [currentIndexObject].SetActive (false);
 			currentIndexObject++;
 			if (currentIndexObject >= objectsToThrow.Length) 
@@ -84,6 +88,43 @@ public class Catapult : MonoBehaviour
 
 	void OnThrowObject()
 	{
-		objectsToThrow [currentIndexObject].GetComponent<ObjectCatapult> ().LaunchObject ();
+		objectsToThrow [currentIndexObject].GetComponent<ObjectToLaunch> ().LaunchObject ();
 	}
+
+	void OnStartLaneSelection()
+	{
+		StartCoroutine ("OnLaneSelection");
+	}
+
+	void OnLaneSelected()
+	{
+		StopCoroutine ("OnLaneSelection");
+	}
+
+	IEnumerator OnLaneSelection()
+	{
+		currentIndexLane = Random.Range(0, lanePos.Length);
+
+		Vector3 newPos = lanePos [currentIndexLane].position;
+		newPos.y = transform.position.y;
+		newPos.z = transform.position.z;
+
+		transform.position = newPos;
+		while (true) 
+		{
+			yield return new WaitForSeconds (1/laneChangesPerSecond);
+			currentIndexLane++;
+			if (currentIndexLane >= lanePos.Length) 
+			{
+				currentIndexLane = 0;
+			}
+
+			newPos = lanePos [currentIndexLane].position;
+			newPos.y = transform.position.y;
+			newPos.z = transform.position.z;
+
+			transform.position = newPos;
+		}
+	}
+
 }

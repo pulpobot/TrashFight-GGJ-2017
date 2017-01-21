@@ -26,15 +26,19 @@ public class ObjectToLaunch : MonoBehaviour {
 		OnAir = true;
 	}
 
-	void OnCollisionEnter(Collision obj)
+	void OnTriggerEnter(Collider obj)
 	{
 		if (OnAir) 
 		{
+			OnAir = false;
+			obj.GetComponent<GardenPad> ().OnHit ();
+
 			transform.position = startV;	
 			OnAir = false;
 			GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			GetComponent<Rigidbody> ().rotation = Quaternion.identity;
 			GetComponent<Rigidbody> ().isKinematic = true;
+			gameObject.SetActive (false);
 		}
 	}
 }
