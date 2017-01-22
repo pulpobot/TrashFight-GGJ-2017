@@ -21,22 +21,27 @@ public class GameController : MonoBehaviour
 	public GameObject p2WinnerPanel;
 	public GameObject p2LoserPanel;
 
+	public Text[] scoresP1;
+	public Text[] scoresP2;
 
 	void Start()
 	{
-		p1Button.interactable = true;
-		p2Button.interactable = true;
-
 		p1WinnerPanel.SetActive (false);
 		p1LoserPanel.SetActive (false);
 		p2WinnerPanel.SetActive (false);
 		p2LoserPanel.SetActive (false);
 
 		StartCoroutine (Timer());
+
 	}
 
 	IEnumerator Timer()
 	{
+		yield return new WaitForSeconds (1f);
+
+		p1Button.interactable = true;
+		p2Button.interactable = true;
+
 		float t = roundTime;
 
 		p1Catapult.OnTap ();
@@ -57,6 +62,16 @@ public class GameController : MonoBehaviour
 
 		float healthP1 = p1Garden.CalculateHealth ();
 		float healthP2 = p2Garden.CalculateHealth ();
+
+		for (int i = 0; i < scoresP1.Length; i++) 
+		{
+			scoresP1 [0].text = "Score: " + Mathf.RoundToInt(healthP2);
+		}
+
+		for (int i = 0; i < scoresP2.Length; i++) 
+		{
+			scoresP2 [0].text = "Score: " + Mathf.RoundToInt(healthP1);
+		}
 
 		if (healthP1 > healthP2) 
 		{
