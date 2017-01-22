@@ -10,6 +10,7 @@ public class GardenPad : MonoBehaviour
 	public float health = 1;
 
 	public GameObject[] decals;
+	public Color[] damageColors;
 	public float maxVerticalAlignment;
 	private float initialAlignment;
 
@@ -87,15 +88,32 @@ public class GardenPad : MonoBehaviour
 	{
 		yield return new WaitForSeconds(1);
 		transform.parent.GetComponent<Animator> ().enabled = false;
+
+		Color colorTo = Color.white;
+
+		if (health <= 0.75f)
+			colorTo = damageColors [0];
+		else if (health <= 0.5f) 
+			colorTo = damageColors [1];
+		else if (health <= 0.25f) 
+			colorTo = damageColors [2];
+
+		Color colorFrom = GetComponent<Renderer> ().material.color;
 	
 		Vector3 alignment = new Vector3(transform.parent.position.x, Mathf.Lerp (initialAlignment, maxVerticalAlignment, 1-health), transform.parent.position.z);
 		float t = 0;
 		Vector3 aux = transform.parent.position;
 		aux.y = initialAlignment;
 
+		Renderer[] renderers = transform.parent.GetComponentsInChildren<Renderer> ();
+
 		while (t <= 1)
 		{
 			transform.parent.position = Vector3.Lerp (aux, alignment, t);
+			for (int i = 0; i < renderers.Length; i++) 
+			{
+				renderers [i].material.color = Color.Lerp (colorFrom, colorTo, t);
+			}
 			yield return null;
 			t += Time.deltaTime*1f;
 		}

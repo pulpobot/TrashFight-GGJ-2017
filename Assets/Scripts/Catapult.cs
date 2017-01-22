@@ -115,6 +115,7 @@ public class Catapult : MonoBehaviour
 	{
 		StopCoroutine ("OnSelectionChanger");
 		objectsToThrow [currentIndexObject].SetActive (true);
+		forceMeter.SetImage (currentIndexObject);
 	}
 
 	void OnThrowObject()

@@ -5,24 +5,26 @@ using UnityEngine.UI;
 
 public class ForceMeterUIController : MonoBehaviour 
 {
-	public float maxHeightYValue = 516f;
-	public int divider = 8;
+	public float minXValue = 516f;
+	public float maxXValue = 516f;
 
-	int currentValue;
+	public Sprite[] objectsList;
+
+	float currentValue;
 	void Awake()
 	{
-		GetComponent<RectTransform> ().sizeDelta = new Vector2 (GetComponent<RectTransform> ().sizeDelta.x, 0);
-		currentValue = 0;
+		currentValue = 0.1f;
+		SetValue (currentValue);
 	}
 
-//	public void SetValue(int value)
-//	{
-//		currentValue = value;
-//		GetComponent<RectTransform> ().sizeDelta = new Vector2 (GetComponent<RectTransform> ().sizeDelta.x, (maxHeightYValue / divider) * currentValue);
-//	}
+	public void SetImage(int index)
+	{
+		GetComponent<Image> ().sprite = objectsList [index];
+	}
 
 	public void SetValue(float value)
 	{
-		GetComponent<RectTransform> ().sizeDelta = new Vector2 (GetComponent<RectTransform> ().sizeDelta.x, maxHeightYValue  * value);
+		currentValue = 1-value;
+		GetComponent<RectTransform> ().anchoredPosition = new Vector2 (Mathf.Lerp(maxXValue,minXValue, currentValue), GetComponent<RectTransform> ().anchoredPosition.y);
 	}
 }

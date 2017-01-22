@@ -13,7 +13,7 @@ public class RouletteController : MonoBehaviour {
 	public void StartRoulette()
 	{
 		roulette.Play ("Idle");
-
+		GetComponent<Animator> ().Play ("RouletteShow");
 		mainImage.enabled = false;
 		for (int i = 0; i < decorators.Length; i++) 
 		{
@@ -36,6 +36,7 @@ public class RouletteController : MonoBehaviour {
 	{
 		roulette.Play ("Stop");
 		StopCoroutine ("PlaySound");
+		GetComponent<Animator> ().Play ("RouletteHide");
 
 		mainImage.enabled = true;
 		mainImage.sprite = objectsList [value];
