@@ -12,6 +12,8 @@ public class GardenPad : MonoBehaviour
 	public GameObject[] decals;
 	public Color[] damageColors;
 	public float maxVerticalAlignment;
+
+	public GameObject particles;
 	private float initialAlignment;
 
 	void Start()
@@ -45,7 +47,7 @@ public class GardenPad : MonoBehaviour
 
 		OnWaveHit (damage);
 		StartCoroutine (AnimateDecal ());
-
+		((GameObject)Instantiate (particles)).transform.position = new Vector3(transform.position.x, transform.position.y + 3, transform.position.z);
 		//Affect the closest ones
 		if (range > 0) 
 		{
