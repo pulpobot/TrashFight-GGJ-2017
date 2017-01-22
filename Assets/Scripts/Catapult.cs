@@ -29,6 +29,8 @@ public class Catapult : MonoBehaviour
 
 	public ForceMeterUIController forceMeter;
 
+	public RouletteController roulette;
+
 	int currentIndexObject;
 	int currentIndexLane;
 	float currentForce;
@@ -49,6 +51,7 @@ public class Catapult : MonoBehaviour
 	{
 		currentStep = RoundStep.Pause;
 		StopAllCoroutines ();
+		roulette.StopRoulette (0);
 	}
 
 	public void OnTap()
@@ -57,11 +60,13 @@ public class Catapult : MonoBehaviour
 		{
 		case RoundStep.Pause:
 			currentStep = RoundStep.Select;
+			roulette.StartRoulette ();
 			OnStartSelection ();
 				break;
 
 		case RoundStep.Select:
 			currentStep = RoundStep.Rotation;
+			roulette.StopRoulette (currentIndexObject);
 			OnObjectSelected ();
 			OnStartLaneSelection ();
 				break;
@@ -91,28 +96,30 @@ public class Catapult : MonoBehaviour
 	IEnumerator OnSelectionChanger()
 	{
 		currentIndexObject = Random.Range(0, objectsToThrow.Length);
-		objectsToThrow [currentIndexObject].SetActive (true);
+		//objectsToThrow [currentIndexObject].SetActive (true);
 		while (true) 
 		{
 			yield return new WaitForSeconds (1/objectChangesPerSecond);
-			objectsToThrow [currentIndexObject].SetActive (false);
+			//objectsToThrow [currentIndexObject].SetActive (false);
 			currentIndexObject++;
 			if (currentIndexObject >= objectsToThrow.Length) 
 			{
 				currentIndexObject = 0;
 			}
 
-			objectsToThrow [currentIndexObject].SetActive (true);
+			//objectsToThrow [currentIndexObject].SetActive (true);
 		}
 	}
 
 	void OnObjectSelected()
 	{
 		StopCoroutine ("OnSelectionChanger");
+		objectsToThrow [currentIndexObject].SetActive (true);
 	}
 
 	void OnThrowObject()
 	{
+		GetComponent<AudioSource> ().Play ();
 		objectsToThrow [currentIndexObject].GetComponent<ObjectToLaunch> ().LaunchObject (Vector3.Lerp(minForce, maxForce, currentForce));
 		StartCoroutine (WaitToResetTurn());
 	}

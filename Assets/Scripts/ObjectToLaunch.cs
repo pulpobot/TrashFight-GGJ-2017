@@ -26,7 +26,7 @@ public class ObjectToLaunch : MonoBehaviour {
 
 	void Awake()
 	{
-		startingTransform = transform.position;
+		startingTransform = transform.localPosition;
 		switch(objectSize)
 		{
 		case ObjectSize.Large:
@@ -63,7 +63,7 @@ public class ObjectToLaunch : MonoBehaviour {
 
 	public void ResetPosition()
 	{
-		transform.position = startingTransform;
+		transform.localPosition = startingTransform;
 	}
 
 	void OnTriggerEnter(Collider obj)
@@ -82,7 +82,8 @@ public class ObjectToLaunch : MonoBehaviour {
 			else
 				((GameObject)Instantiate (largeSmoke)).transform.position = transform.position;
 
-			
+			GetComponent<AudioSource> ().Play ();
+
 			transform.position = startV;
 			GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			GetComponent<Rigidbody> ().rotation = Quaternion.identity;

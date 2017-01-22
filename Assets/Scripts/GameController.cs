@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
 	public GameObject p2WinnerPanel;
 	public GameObject p2LoserPanel;
 
+
 	void Start()
 	{
 		p1Button.interactable = true;
@@ -37,6 +38,10 @@ public class GameController : MonoBehaviour
 	IEnumerator Timer()
 	{
 		float t = roundTime;
+
+		p1Catapult.OnTap ();
+		p2Catapult.OnTap ();
+
 
 		while (t > 0) 
 		{
