@@ -205,10 +205,11 @@ public class Catapult : MonoBehaviour
 			yield return null;
 			currentForce += multiplier * 0.08f;
 
-			if (currentForce >= 1 || currentForce <= 0) 
+			if (currentForce >= 1 || currentForce <= 0.1f) 
 			{
 				multiplier *= -1;
 			}
+			currentForce = Mathf.Clamp (currentForce, 0.1f, 1f);
 
 			forceMeter.SetValue (currentForce);
 			//			yield return new WaitForSeconds (1/forceChangesPerSecond);

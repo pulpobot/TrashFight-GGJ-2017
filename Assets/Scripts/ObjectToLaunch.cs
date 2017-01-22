@@ -16,6 +16,10 @@ public class ObjectToLaunch : MonoBehaviour {
 
 	public float[] mass;
 
+	public GameObject smallSmoke;
+	public GameObject largeSmoke;
+
+
 	Vector3 startV;
 	bool OnAir;
 	Vector3 startingTransform;
@@ -72,10 +76,18 @@ public class ObjectToLaunch : MonoBehaviour {
 				aux.OnHit (objectSize);
 			}
 			OnAir = false;
-			transform.position = startV;	
+
+			if (objectSize == ObjectSize.Small)
+				((GameObject)Instantiate (smallSmoke)).transform.position = transform.position;
+			else
+				((GameObject)Instantiate (largeSmoke)).transform.position = transform.position;
+
+			
+			transform.position = startV;
 			GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			GetComponent<Rigidbody> ().rotation = Quaternion.identity;
 			GetComponent<Rigidbody> ().isKinematic = true;
+
 			gameObject.SetActive (false);
 
 		}

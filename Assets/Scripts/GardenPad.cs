@@ -9,17 +9,19 @@ public class GardenPad : MonoBehaviour
 
 	public float health = 1;
 
-	public Color[] damageColors;
+	public GameObject[] decals;
+	public float maxVerticalAlignment;
+	private float initialAlignment;
 
 	void Start()
 	{
+		initialAlignment = transform.parent.position.y;
 		OnWaveHit (0);
+		decals [0].SetActive (false);
 	}
 
 	public void OnHit(ObjectSize objSize)
 	{
-		GetComponent<Renderer> ().enabled = true;
-
 		int range = 0;
 
 		float damage = 0;
@@ -41,6 +43,7 @@ public class GardenPad : MonoBehaviour
 		}
 
 		OnWaveHit (damage);
+		StartCoroutine (AnimateDecal ());
 
 		//Affect the closest ones
 		if (range > 0) 
@@ -67,22 +70,78 @@ public class GardenPad : MonoBehaviour
 	{
 		health -= hitDamage;
 
-		GetComponent<Renderer> ().enabled = true;
+		//StartCoroutine (AnimateWave(false));
+		//StartCoroutine (AnimateDecal ());
+		transform.parent.GetComponent<Animator> ().enabled = true;
+		if (hitDamage >= 0.75f)
+			transform.parent.GetComponent<Animator> ().Play ("WaveLarge");
+		else if (hitDamage >= 0.5f) 
+			transform.parent.GetComponent<Animator> ().Play ("WaveMedium");
+		else if (hitDamage >= 0.25f) 
+			transform.parent.GetComponent<Animator> ().Play ("WaveSmall");
 
-		if (health <= 0.75f)
-			GetComponent<Renderer> ().material.color = damageColors [0];
-		if (health <= 0.5f) 
-			GetComponent<Renderer> ().material.color = damageColors [1];
-		if (health <= 0.25f) 
-			GetComponent<Renderer> ().material.color = damageColors [2];
-		if (health <= 0f) 
-			GetComponent<Renderer> ().material.color = damageColors [3];
-//		if (hitDamage == 0.75f)
-//			GetComponent<Renderer> ().material.color = Color.red;
-//		else if (hitDamage == 0.5f) 
-//			GetComponent<Renderer> ().material.color = Color.blue;
-//		else if (hitDamage == 0.25f) 
-//			GetComponent<Renderer> ().material.color = Color.green;
+		StartCoroutine (AnimateWave());
+	}
+
+	IEnumerator AnimateWave()
+	{
+		yield return new WaitForSeconds(1);
+		transform.parent.GetComponent<Animator> ().enabled = false;
+	
+		Vector3 alignment = new Vector3(transform.parent.position.x, Mathf.Lerp (initialAlignment, maxVerticalAlignment, 1-health), transform.parent.position.z);
+		float t = 0;
+		Vector3 aux = transform.parent.position;
+		aux.y = initialAlignment;
+
+		while (t <= 1)
+		{
+			transform.parent.position = Vector3.Lerp (aux, alignment, t);
+			yield return null;
+			t += Time.deltaTime*1f;
+		}
+//
+//		if (animateDecal)
+//			StartCoroutine (AnimateDecal ());
+//		
+//		while (t <= 1)
+//		{
+//			transform.parent.position = Vector3.Lerp (aux, alignment, Mathf.Sin (Mathf.Deg2Rad*360*t));
+//			yield return null;
+//			t += Time.deltaTime*1.5f;
+//		}
+//
+//		aux = transform.parent.position;
+//		t = 0;
+
+	}
+
+	IEnumerator AnimateDecal()
+	{
+		float t = 0;
+		decals [0].SetActive (true);
+		Color auxColor = decals [0].GetComponent<SpriteRenderer> ().color;
+		Color targetColor = new Color (auxColor.r, auxColor.g, auxColor.b, 0);
+
+		while (t <= 1) 
+		{
+			decals [0].GetComponent<SpriteRenderer> ().color = Color.Lerp (targetColor, auxColor, t);
+			yield return null;
+			t += Time.deltaTime*2f;
+		}
+
+		t = 0;
+		auxColor = decals [0].GetComponent<SpriteRenderer> ().color;
+		while (t <= 1) 
+		{
+			decals [0].GetComponent<SpriteRenderer> ().color = Color.Lerp (auxColor,targetColor, t);
+			yield return null;
+			t += Time.deltaTime*0.2f;
+		}
+
+		yield return new WaitForSeconds(1.5f);
+		auxColor.a = 1;
+		decals [0].SetActive (false);
+		decals [0].GetComponent<SpriteRenderer> ().color = auxColor;
 	}
 }
 
