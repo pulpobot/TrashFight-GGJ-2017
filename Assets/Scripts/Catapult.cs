@@ -30,6 +30,7 @@ public class Catapult : MonoBehaviour
 	public ForceMeterUIController forceMeter;
 
 	public RouletteController roulette;
+	public Animator arrow;
 
 	int currentIndexObject;
 	int currentIndexLane;
@@ -44,6 +45,8 @@ public class Catapult : MonoBehaviour
 
 	void Start()
 	{
+		forceMeter.transform.parent.GetComponent<Animator> ().Play ("RouletteHide");
+		arrow.Play ("RouletteHide");
 		currentStep = RoundStep.Pause;
 	}
 
@@ -96,31 +99,28 @@ public class Catapult : MonoBehaviour
 	IEnumerator OnSelectionChanger()
 	{
 		currentIndexObject = Random.Range(0, objectsToThrow.Length);
-		//objectsToThrow [currentIndexObject].SetActive (true);
 		while (true) 
 		{
 			yield return new WaitForSeconds (1/objectChangesPerSecond);
-			//objectsToThrow [currentIndexObject].SetActive (false);
 			currentIndexObject++;
 			if (currentIndexObject >= objectsToThrow.Length) 
 			{
 				currentIndexObject = 0;
 			}
 
-			//objectsToThrow [currentIndexObject].SetActive (true);
 		}
 	}
 
 	void OnObjectSelected()
 	{
 		StopCoroutine ("OnSelectionChanger");
-		objectsToThrow [currentIndexObject].SetActive (true);
 		forceMeter.SetImage (currentIndexObject);
 	}
 
 	void OnThrowObject()
 	{
 		GetComponent<AudioSource> ().Play ();
+		objectsToThrow [currentIndexObject].SetActive (true);
 		objectsToThrow [currentIndexObject].GetComponent<ObjectToLaunch> ().LaunchObject (Vector3.Lerp(minForce, maxForce, currentForce));
 		StartCoroutine (WaitToResetTurn());
 	}
@@ -150,12 +150,13 @@ public class Catapult : MonoBehaviour
 	void OnLaneSelected()
 	{
 		StopCoroutine ("OnLaneSelection");
+		arrow.Play ("RouletteHide");
 	}
 
 	IEnumerator OnLaneSelection()
 	{
 		currentIndexLane = Random.Range(0, lanePos.Length);
-
+		arrow.Play ("RouletteShow");
 		Vector3 newPos = lanePos [currentIndexLane].position;
 		newPos.y = transform.position.y;
 		newPos.z = transform.position.z;
@@ -206,6 +207,7 @@ public class Catapult : MonoBehaviour
 
 	IEnumerator OnForceSelection()
 	{
+		forceMeter.transform.parent.GetComponent<Animator> ().Play ("RouletteShow");
 		currentForce = 0;
 		int multiplier = 1;
 		while (true) 
@@ -229,6 +231,8 @@ public class Catapult : MonoBehaviour
 	void OnForceSelected()
 	{
 		StopCoroutine ("OnForceSelection");
+		forceMeter.transform.parent.GetComponent<Animator> ().Play ("RouletteHide");
+
 	}
 
 }
