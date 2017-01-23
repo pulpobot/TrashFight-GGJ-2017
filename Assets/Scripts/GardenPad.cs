@@ -19,7 +19,7 @@ public class GardenPad : MonoBehaviour
 	void Start()
 	{
 		initialAlignment = transform.parent.position.y;
-		OnWaveHit (0);
+		//OnWaveHit (0);
 		decals [0].SetActive (false);
 	}
 

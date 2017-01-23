@@ -65,12 +65,12 @@ public class GameController : MonoBehaviour
 
 		for (int i = 0; i < scoresP1.Length; i++) 
 		{
-			scoresP1 [0].text = "Score: " + Mathf.RoundToInt(healthP2);
+			scoresP1 [i].text = "Score: " + Mathf.RoundToInt(healthP2);
 		}
 
 		for (int i = 0; i < scoresP2.Length; i++) 
 		{
-			scoresP2 [0].text = "Score: " + Mathf.RoundToInt(healthP1);
+			scoresP2 [i].text = "Score: " + Mathf.RoundToInt(healthP1);
 		}
 
 		if (healthP1 > healthP2) 
